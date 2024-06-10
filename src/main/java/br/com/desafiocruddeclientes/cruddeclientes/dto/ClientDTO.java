@@ -5,6 +5,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class ClientDTO {
@@ -13,13 +19,32 @@ public class ClientDTO {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Size(
+    min = 6,
+    max = 200,
+    message = "O nome deve conter no mínimo 6 caracteres"
+  )
+  @NotBlank(message = "Campo requerido")
   private String name;
 
   @Column(unique = true)
+  @Pattern(
+    regexp = "^[0-9]{11}$",
+    message = "O campo deve conter 11 caracteres numéricos"
+  )
+  @NotBlank(message = "Campo requerido")
   private String cpf;
 
+  @Positive
+  @NotBlank(message = "Campo requerido")
   private Double income;
+
+  @PastOrPresent
+  @NotBlank(message = "Campo requerido")
   private LocalDate birthDate;
+
+  @Positive
+  @NotBlank(message = "Campo requerido")
   private Integer children;
 
   public ClientDTO(
