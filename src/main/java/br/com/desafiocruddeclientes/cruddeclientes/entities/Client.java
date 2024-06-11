@@ -1,6 +1,5 @@
 package br.com.desafiocruddeclientes.cruddeclientes.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,15 +16,13 @@ public class Client {
   private Long id;
 
   private String name;
-
-  @Column(unique = true)
   private String cpf;
 
   private Double income;
   private LocalDate birthDate;
   private Integer children;
 
-  public Client(){}
+  public Client() {}
 
   public Client(
     Long id,

@@ -2,6 +2,7 @@ package br.com.desafiocruddeclientes.cruddeclientes.controllers;
 
 import br.com.desafiocruddeclientes.cruddeclientes.dto.ClientDTO;
 import br.com.desafiocruddeclientes.cruddeclientes.services.ClientService;
+import jakarta.validation.Valid;
 import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,7 @@ public class ClientController {
   }
 
   @PostMapping
-  public ResponseEntity<ClientDTO> insert(@RequestBody ClientDTO dto) {
+  public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO dto) {
     dto = service.insert(dto);
     URI uri = ServletUriComponentsBuilder
       .fromCurrentRequest()
@@ -57,8 +58,8 @@ public class ClientController {
   }
 
   @DeleteMapping(value = "/{id}")
-  public void delete(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     service.delete(id);
-    //return ResponseEntity.noContent().build();
+    return ResponseEntity.noContent().build();
   }
 }

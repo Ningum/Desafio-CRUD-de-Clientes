@@ -1,22 +1,15 @@
 package br.com.desafiocruddeclientes.cruddeclientes.dto;
 
 import br.com.desafiocruddeclientes.cruddeclientes.entities.Client;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class ClientDTO {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Size(
@@ -27,24 +20,21 @@ public class ClientDTO {
   @NotBlank(message = "Campo requerido")
   private String name;
 
-  @Column(unique = true)
-  @Pattern(
-    regexp = "^[0-9]{11}$",
+  @Size(
+    min = 11,
+    max = 11,
     message = "O campo deve conter 11 caracteres numéricos"
   )
   @NotBlank(message = "Campo requerido")
   private String cpf;
 
-  @Positive
-  @NotBlank(message = "Campo requerido")
+  @Min(value = 0, message = "Campo deve ser igual ou maior que zero")
   private Double income;
 
-  @PastOrPresent
-  @NotBlank(message = "Campo requerido")
+  @PastOrPresent(message = "Informe uma data de nascimento válida")
   private LocalDate birthDate;
 
-  @Positive
-  @NotBlank(message = "Campo requerido")
+  @Min(value = 0, message = "Campo deve ser igual ou maior que zero")
   private Integer children;
 
   public ClientDTO(
